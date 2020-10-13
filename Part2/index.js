@@ -1,7 +1,6 @@
 
 let grabId = document.getElementById("grab-id")
 let styleCard = document.getElementById("style-card")
-let cards = document.getElementsByTagName("section")
 
 function setCard() {
     let card = document.getElementById(grabId.value)
@@ -12,6 +11,8 @@ function setCard() {
 }
 
 function resetCard() {
+    let cards = document.getElementsByTagName("section")
+    
     for (i = 0; i < 3; i++) {
         cards[i].style.color = "gray"
     }

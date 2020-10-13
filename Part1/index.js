@@ -1,19 +1,23 @@
 let board = []
 
-let testArr = ["0","0","0","0","4","5","0","7","8"]
-
 function play(clickedId) {
     let playerSpan = document.getElementById("player")
     let clickedElement = document.getElementById(clickedId)
 
     if (playerSpan.innerText === "X") {
-        playerSpan.innerText = "O"
-        clickedElement.innerText = "X"
-        board[clickedId] = "X"
+        if (clickedElement.innerText == "") {
+          playerSpan.innerText = "O"
+          clickedElement.innerText = "X"
+          board[clickedId] = "X"
+        }
+        
     } else {
-        playerSpan.innerText = "X"
-        clickedElement.innerText = "O"
-        board[clickedId] = "O"
+        if (clickedElement.innerText == "") {
+          clickedElement.innerText = "O"
+          playerSpan.innerText = "X"
+          board[clickedId] = "O"
+        }
+        
     }
 
     const topLeft = board[0]
@@ -26,37 +30,29 @@ function play(clickedId) {
     const bottomCenter = board[7]
     const bottomRight = board[8]
 
-    if (topLeft !== undefined && topLeft === topCenter && topLeft === topRight) {
-    alert(`${topLeft} is the winner`);
-    return;
+  if (topLeft !== undefined && topLeft === topCenter && topLeft === topRight) {
+    win(topLeft)
   }
   if (middleLeft !== undefined && middleLeft === middleCenter && middleLeft === middleRight) {
-    alert(`${middleLeft} is the winner`);
-    return;
+    win(middleLeft)
   }
   if (bottomLeft !== undefined && bottomLeft === bottomCenter && bottomLeft === bottomRight) {
-    alert(`${bottomLeft} is the winner`);
-    return;
+    win(bottomLeft)
   }
   if (topLeft !== undefined && topLeft === middleLeft && topLeft === bottomLeft) {
-    alert(`${topLeft} is the winner`);
-    return;
+    win(topLeft)
   }
   if (topCenter !== undefined && topCenter === middleCenter && topCenter === bottomCenter) {
-    alert(`${topCenter} is the winner`);
-    return;
+    win(topCenter)
   }
   if (topRight !== undefined && topRight === middleRight && topRight === bottomRight) {
-    alert(`${topRight} is the winner`);
-    return;
+    win(topRight)
   }
   if (topLeft !== undefined && topLeft === middleCenter && topLeft === bottomRight) {
-    alert(`${topLeft} is the winner`);
-    return;
+    win(topLeft)
   }
   if (bottomLeft !== undefined && bottomLeft === middleCenter && bottomLeft === topRight) {
-    alert(`${bottomLeft} is the winner`);
-    return;
+    win(bottomLeft)
   }
 
   let boardFull = true;
@@ -68,9 +64,16 @@ function play(clickedId) {
   }
   if (boardFull) {
     alert("Cat's game, there is no winner");
+    resetBoard()
   }
 }
 
+function resetBoard() {
+  location.reload()
+}
 
-
-
+function win(letter) {
+  alert(`${letter} is the winner`)
+  resetBoard()
+  return
+}
